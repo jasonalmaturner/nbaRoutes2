@@ -7,7 +7,7 @@ $scope.newGame = {};
 $scope.showNewGameForm = false;
 
 $scope.toggleNewGameForm = function(){
-	$scope.showNewGameForm = !scope.showNewGameForm;
+	$scope.showNewGameForm = !$scope.showNewGameForm;
 }
 
 if($routeParams.team === '/teams/utahjazz') {
@@ -25,7 +25,9 @@ $scope.submitGame = function(){
 	$scope.newGame.homeTeam = $scope.homeTeam.split(' ').join('').toLowerCase();
 	teamService.addNewGame($scope.newGame).then(function(res){
 		teamService.getTeamData($scope.newGame.homeTeam).then(function(response){
-
+			$scope.teamData = response;
+			$scope.newGame = {};
+			$scope.showNewGameForm = false;
 		}, function(error){
 			console.log(error);
 		})
