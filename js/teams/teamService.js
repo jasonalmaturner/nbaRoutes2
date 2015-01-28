@@ -4,7 +4,7 @@ app.service('teamService', function($http, $q){
 
 this.addNewGame = function(gameObject){
 	var url = "https://api.parse.com/1/classes/" + gameObject.homeTeam;
-	if(gameObject.homeTeamScore.parseInt() > gameObject.opponentScore.parseInt()){
+	if(parseInt(gameObject.homeTeamScore) > parseInt(gameObject.opponentScore)){
 		gameObject.won = true;
 	} else {
 		gameObject.won = false;
@@ -33,8 +33,8 @@ this.getTeamData = function(team) {
 				losses++;
 			}
 		}
-		results.wins = wins;
-		results.losses = losses;
+		results['wins'] = wins;
+		results['losses'] = losses;
 		deferred.resolve(results);
 	}, function(err){
 		deferred.reject(err);
